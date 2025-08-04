@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카테고리 분석 도구</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>카테고리 분석 도구</h1>
+      <p>엑셀 파일을 업로드하여 카테고리 트리 구조를 분석하세요</p>
+    </header>
+
+    <div class="upload-section">
+      <div class="file-upload">
+        <label for="excelFile" class="upload-label">
+          <span class="upload-icon">📁</span>
+          <span>엑셀 파일 선택</span>
+        </label>
+        <input type="file" id="excelFile" accept=".xlsx,.xls" />
+      </div>
+      <div class="upload-actions">
+        <button id="analyzeBtn" class="analyze-btn" disabled title="엑셀 파일을 선택한 후 클릭하세요">분석 시작</button>
+        <button id="addCategoryBtn" class="add-category-btn" disabled title="먼저 엑셀 파일을 분석한 후 사용할 수 있습니다">하위 카테고리
+          추가</button>
+        <button id="multiInputBtn" class="multi-input-btn" disabled title="먼저 엑셀 파일을 분석한 후 사용할 수 있습니다">다중 카테고리
+          추가</button>
+        <button id="downloadBtn" class="download-btn" disabled title="먼저 엑셀 파일을 분석한 후 사용할 수 있습니다">카테고리 다운로드</button>
+      </div>
+    </div>
+
+    <div class="analysis-section" style="display: none;">
+      <!-- 분석 통계 섹션 - 1행에 독립적으로 배치 -->
+      <div class="stats-panel">
+        <div class="stats-header">
+          <button id="statsToggleBtn" class="stats-toggle-btn collapsed" title="펼치기/접기">
+            <span class="toggle-icon">▶</span>
+          </button>
+          <h3>분석 통계</h3>
+        </div>
+        <div class="stats-content collapsed" id="statsContent">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">총 카테고리 수</span>
+              <span class="stat-value" id="totalCategories">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">최대 깊이</span>
+              <span class="stat-value" id="maxDepth">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">도메인 구분</span>
+              <span class="stat-value" id="domainTypes">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">루트 카테고리 수</span>
+              <span class="stat-value" id="rootCategories">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">하위 카테고리 수</span>
+              <span class="stat-value" id="childCategories">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">도메인 주소 보유</span>
+              <span class="stat-value" id="hasDomainCount">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">도메인 주소 미보유</span>
+              <span class="stat-value" id="noDomainCount">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">평균 깊이</span>
+              <span class="stat-value" id="avgDepth">0</span>
+            </div>
+          </div>
+          <div class="stats-details">
+            <div class="detail-section">
+              <h4>도메인 구분별 통계</h4>
+              <div id="domainTypeStats" class="detail-list">
+                <!-- 동적으로 생성되는 도메인 구분별 통계 -->
+              </div>
+            </div>
+            <div class="detail-section">
+              <h4>깊이별 카테고리 분포</h4>
+              <div id="depthDistribution" class="detail-list">
+                <!-- 동적으로 생성되는 깊이별 분포 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카테고리 트리와 상세정보 섹션 - 1행에 2열로 배치 -->
+      <div class="analysis-main">
+        <div class="tree-container">
+          <div class="tree-header">
+            <h3>카테고리 트리 구조</h3>
+            <div class="tree-controls">
+              <div class="tree-controls-left">
+                <button id="expandAllBtn" class="control-btn">전체 펼치기</button>
+                <button id="collapseAllBtn" class="control-btn">전체 접기</button>
+                <button id="clearSelectionBtn" class="control-btn clear-btn">선택 초기화</button>
+                <button id="multiSelectModeBtn" class="control-btn multi-select-btn" title="다중 선택 모드로 전환">다중 선택</button>
+              </div>
+              <div class="tree-controls-right">
+                <button id="editCategoryBtn" class="control-btn edit-btn" disabled
+                  title="트리에서 카테고리를 선택한 후 수정할 수 있습니다">수정</button>
+                <button id="deleteCategoryBtn" class="control-btn delete-btn" disabled
+                  title="트리에서 카테고리를 선택한 후 삭제할 수 있습니다">삭제</button>
+                <button id="multiEditBtn" class="control-btn multi-edit-btn" disabled
+                  title="다중 선택 모드에서 여러 카테고리를 수정할 수 있습니다">다중 수정</button>
+                <button id="multiDeleteBtn" class="control-btn multi-delete-btn" disabled
+                  title="다중 선택 모드에서 여러 카테고리를 삭제할 수 있습니다">다중 삭제</button>
+                <input type="text" id="searchInput" placeholder="카테고리 검색..." class="search-input">
+              </div>
+            </div>
+          </div>
+          <div id="treeView" class="tree-view"></div>
+        </div>
+
+        <div class="details-panel">
+          <h3>상세 정보</h3>
+          <div id="categoryDetails" class="category-details">
+            <p class="no-selection">트리에서 항목을 선택하면 상세 정보가 표시됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-section" style="display: none;">
+      <div class="input-container">
+        <h3>하위 카테고리 추가</h3>
+        <form id="categoryForm" class="category-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newId">일련번호 *</label>
+              <input type="text" id="newId" name="id" required>
+            </div>
+            <div class="form-group">
+              <label for="newParentId">부모 카테고리</label>
+              <div class="searchable-dropdown">
+                <input type="text" id="newParentId" name="parentId" placeholder="선택된 카테고리의 하위로 추가됩니다" readonly>
+                <div class="dropdown-list" id="parentDropdownList" style="display: none;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newParentName">카테고리명 *</label>
+              <input type="text" id="newParentName" name="parentName" required>
+            </div>
+            <div class="form-group">
+              <label for="newDomainType">도메인구분</label>
+              <select id="newDomainType" name="domainType">
+                <option value="">선택하세요</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newHasDomain">도메인주소여부</label>
+              <select id="newHasDomain" name="hasDomain">
+                <option value="">선택하세요</option>
+                <option value="Y">Y</option>
+                <option value="N">N</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="newDomainAddress">도메인주소</label>
+              <input type="text" id="newDomainAddress" name="domainAddress">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">하위 카테고리 추가</button>
+            <button type="button" class="cancel-btn" id="cancelBtn">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="edit-section" style="display: none;">
+      <div class="edit-container">
+        <h3>카테고리 수정</h3>
+        <form id="editCategoryForm" class="category-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editId">일련번호 *</label>
+              <input type="text" id="editId" name="id" required readonly>
+            </div>
+            <div class="form-group">
+              <label for="editParentId">부모 카테고리</label>
+              <div class="searchable-dropdown">
+                <input type="text" id="editParentId" name="parentId" placeholder="부모 카테고리를 선택하세요" readonly>
+                <div class="dropdown-list" id="editParentDropdownList" style="display: none;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editParentName">카테고리명 *</label>
+              <input type="text" id="editParentName" name="parentName" required>
+            </div>
+            <div class="form-group">
+              <label for="editDomainType">도메인구분</label>
+              <select id="editDomainType" name="domainType">
+                <option value="">선택하세요</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="editHasDomain">도메인주소여부</label>
+              <select id="editHasDomain" name="hasDomain">
+                <option value="">선택하세요</option>
+                <option value="Y">Y</option>
+                <option value="N">N</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="editDomainAddress">도메인주소</label>
+              <input type="text" id="editDomainAddress" name="domainAddress">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">수정 완료</button>
+            <button type="button" class="cancel-btn" id="editCancelBtn">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="multi-input-section" style="display: none;">
+      <div class="multi-input-container">
+        <h3>다중 카테고리 추가</h3>
+        <div class="multi-input-controls">
+          <button id="addRowBtn" class="control-btn">행 추가</button>
+          <button id="removeRowBtn" class="control-btn">선택 행 삭제</button>
+          <button id="clearAllRowsBtn" class="control-btn">모든 행 지우기</button>
+        </div>
+        <form id="multiCategoryForm" class="multi-category-form">
+          <div class="multi-form-header">
+            <div class="header-cell">선택</div>
+            <div class="header-cell">일련번호 *</div>
+            <div class="header-cell">부모 카테고리</div>
+            <div class="header-cell">카테고리명 *</div>
+            <div class="header-cell">도메인구분</div>
+            <div class="header-cell">도메인주소여부</div>
+            <div class="header-cell">도메인주소</div>
+          </div>
+          <div id="multiFormRows" class="multi-form-rows">
+            <!-- 동적으로 생성되는 행들 -->
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">모든 카테고리 추가</button>
+            <button type="button" class="cancel-btn" id="multiInputCancelBtn">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="multi-edit-section" style="display: none;">
+      <div class="multi-edit-container">
+        <h3>다중 카테고리 수정</h3>
+        <div class="multi-edit-controls">
+          <button id="selectAllEditBtn" class="control-btn">전체 선택</button>
+          <button id="deselectAllEditBtn" class="control-btn">전체 해제</button>
+        </div>
+        <form id="multiEditForm" class="multi-edit-form">
+          <div class="multi-edit-header">
+            <div class="header-cell">선택</div>
+            <div class="header-cell">일련번호</div>
+            <div class="header-cell">부모 카테고리</div>
+            <div class="header-cell">카테고리명 *</div>
+            <div class="header-cell">도메인구분</div>
+            <div class="header-cell">도메인주소여부</div>
+            <div class="header-cell">도메인주소</div>
+          </div>
+          <div id="multiEditRows" class="multi-edit-rows">
+            <!-- 동적으로 생성되는 수정 행들 -->
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">선택한 카테고리 수정</button>
+            <button type="button" class="cancel-btn" id="multiEditCancelBtn">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    </form>
+  </div>
+  </div>
+
+  <div class="loading" id="loading" style="display: none;">
+    <div class="spinner"></div>
+    <p>데이터를 분석하고 있습니다...</p>
+  </div>
+  </div>
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> -->
+  <script src="xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+  <script src="category-download.js"></script>
+</body>
+
+</html>

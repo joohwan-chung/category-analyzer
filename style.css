@@ -1,0 +1,1821 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  min-height: 100vh;
+  color: #2c3e50;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.upload-section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.file-upload {
+  margin-bottom: 20px;
+}
+
+.upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 25px;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.upload-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.upload-icon {
+  font-size: 1.5rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.analyze-btn {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.analyze-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.add-category-btn {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-category-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.add-category-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.multi-input-btn {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.multi-input-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.multi-input-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.download-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.analysis-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* 분석 통계 섹션 - 1행에 독립적으로 배치 */
+.stats-panel {
+  width: 100%;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e9ecef;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  padding: 10px 0;
+  border-bottom: 2px solid #e9ecef;
+  z-index: 5;
+}
+
+.stats-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-left: 45px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stats-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #6c757d;
+  font-size: 1.2rem;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.stats-toggle-btn:hover {
+  background-color: #f8f9fa;
+  color: #495057;
+}
+
+.stats-toggle-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+}
+
+.toggle-icon {
+  transition: all 0.3s ease;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1;
+  color: #6c757d;
+  transform: rotate(0deg);
+}
+
+.stats-toggle-btn.collapsed .toggle-icon {
+  transform: rotate(0deg);
+}
+
+.stats-toggle-btn:not(.collapsed) .toggle-icon {
+  transform: rotate(90deg);
+}
+
+.stats-content {
+  overflow: hidden;
+  max-height: 2000px;
+  opacity: 1;
+  margin-top: 20px;
+  padding-top: 20px;
+  transform: translateY(0);
+}
+
+.stats-content.collapsed {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  padding-top: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
+  display: none;
+}
+
+/* 카테고리 트리와 상세정보 섹션 - 1행에 2열로 배치 */
+.analysis-main {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  /* 카테고리 트리 부분을 더 넓게 설정 */
+  gap: 20px;
+  width: 100%;
+}
+
+.tree-container,
+.details-panel {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.tree-container:hover,
+.details-panel:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.stats-panel h3,
+.tree-container h3,
+.details-panel h3 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.stats-panel h3::after,
+.tree-container h3::after,
+.details-panel h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  border-radius: 2px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 20px 0;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 18px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 12px;
+  border-left: 5px solid #007bff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid #e9ecef;
+}
+
+
+
+.stat-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  flex: 1;
+  margin-right: 15px;
+}
+
+.stat-value {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-width: 60px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+
+
+.tree-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tree-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.tree-controls-left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tree-controls-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.control-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+}
+
+.control-btn.clear-btn {
+  background: #e74c3c;
+}
+
+.control-btn.clear-btn:hover {
+  background: #c0392b;
+}
+
+.control-btn.edit-btn {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.control-btn.edit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+}
+
+.control-btn.delete-btn {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.control-btn.delete-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+}
+
+.control-btn.multi-select-btn {
+  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+}
+
+.control-btn.multi-select-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #8e44ad 0%, #7d3c98 100%);
+}
+
+.control-btn.multi-edit-btn {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.control-btn.multi-edit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+}
+
+.control-btn.multi-delete-btn {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.control-btn.multi-delete-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 2px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  width: 200px;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.tree-view {
+  max-height: 600px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.tree-item {
+  margin: 5px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tree-item:hover {
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.tree-item.selected {
+  background: #e3f2fd;
+  border-radius: 5px;
+  border-left: 3px solid #667eea;
+}
+
+.tree-item.new-category {
+  background: #e8f5e8;
+  border-radius: 5px;
+  border-left: 3px solid #27ae60;
+}
+
+.tree-item.new-category .tree-label {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.tree-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.tree-toggle {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  color: #3498db;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tree-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.tree-icon {
+  font-size: 1.2rem;
+  color: #3498db;
+}
+
+.tree-label {
+  flex: 1;
+  font-weight: 500;
+}
+
+.tree-children {
+  margin-left: 25px;
+  border-left: 2px solid #bdc3c7;
+  padding-left: 15px;
+  display: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tree-children.expanded {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.category-details {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.no-selection {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+.detail-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.detail-value {
+  color: #666;
+  word-break: break-all;
+}
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  color: white;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.highlight {
+  background: #f39c12;
+  padding: 2px 4px;
+  border-radius: 3px;
+  color: white;
+}
+
+/* 진행 상태 UI 스타일 */
+.tree-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  min-width: 300px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+  border: 2px solid #3498db;
+}
+
+.progress-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.progress-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.progress-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.progress-stats {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.progress-current {
+  color: #667eea;
+  font-weight: 700;
+}
+
+.progress-total {
+  color: #333;
+  font-weight: 600;
+}
+
+/* 트리 뷰에 상대 위치 설정 */
+.tree-view {
+  position: relative;
+  min-height: 200px;
+}
+
+/* 입력 섹션 스타일 */
+.input-section {
+  margin-top: 30px;
+}
+
+/* 수정 섹션 스타일 */
+.edit-section,
+.multi-input-section,
+.multi-edit-section {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.edit-container,
+.multi-input-container,
+.multi-edit-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.edit-container h3,
+.multi-input-container h3,
+.multi-edit-container h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.input-container {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.input-container h3 {
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.category-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px 15px;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-group input[required]+label::after {
+  content: " *";
+  color: #e74c3c;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cancel-btn {
+  background: #95a5a6;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: #7f8c8d;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}
+
+/* details-section 스타일 제거 - analysis-main 내부로 이동됨 */
+
+@media (max-width: 1200px) {
+  .analysis-main {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .tree-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tree-controls {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .analysis-main {
+    grid-template-columns: 2fr 1fr;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .upload-section {
+    padding: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tree-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .tree-controls-left,
+  .tree-controls-right {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* 검색 가능한 드롭다운 스타일 */
+.searchable-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.searchable-dropdown input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.searchable-dropdown input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 2px solid #e1e5e9;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item.selected {
+  background-color: #3498db;
+  color: white;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item.top-level-option {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  font-weight: 600;
+  border-left: 4px solid #27ae60;
+}
+
+.dropdown-item.top-level-option:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+  transform: translateX(2px);
+}
+
+/* 선택된 카테고리 정보 표시 스타일 */
+.selected-category-info {
+  background: linear-gradient(135deg, #e8f4fd 0%, #d1ecf1 100%);
+  border: 2px solid #3498db;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.selected-category-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+.selected-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.info-label {
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.info-path {
+  font-weight: 600;
+  color: #3498db;
+  font-size: 1rem;
+  background: rgba(52, 152, 219, 0.1);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(52, 152, 219, 0.2);
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.1);
+}
+
+.info-hint {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  font-style: italic;
+  margin-left: auto;
+  background: rgba(127, 140, 141, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* 선택된 트리 아이템 강조 */
+.tree-item.selected {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border-radius: 8px;
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tree-item.selected .tree-label {
+  color: white;
+  font-weight: 600;
+}
+
+.tree-item.selected .tree-icon {
+  color: white;
+}
+
+.tree-item.selected .tree-toggle {
+  color: white;
+}
+
+/* 검색 결과 없음 메시지 스타일 */
+.no-results-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #7f8c8d;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 2px dashed #bdc3c7;
+}
+
+.no-results-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.no-results-icon {
+  font-size: 2rem;
+  opacity: 0.7;
+}
+
+.no-results-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* 다중 입력/수정 스타일 */
+.multi-input-controls,
+.multi-edit-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.multi-input-controls .control-btn,
+.multi-edit-controls .control-btn {
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.multi-input-controls .control-btn:hover,
+.multi-edit-controls .control-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.multi-category-form,
+.multi-edit-form {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.multi-form-header,
+.multi-edit-header {
+  display: grid;
+  grid-template-columns: 60px 120px 200px 200px 120px 120px 180px;
+  gap: 0;
+  padding: 20px 15px;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  min-height: 50px;
+}
+
+.header-cell {
+  padding: 8px 4px;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-cell:last-child {
+  border-right: none;
+}
+
+.multi-form-rows,
+.multi-edit-rows {
+  max-height: 600px;
+  overflow-y: auto;
+  background: white;
+  padding-left: 40px;
+  position: relative;
+}
+
+.multi-form-row,
+.multi-edit-row {
+  display: grid;
+  grid-template-columns: 60px 120px 200px 200px 120px 120px 180px;
+  gap: 0;
+  padding: 20px 15px;
+  border-bottom: 1px solid #e9ecef;
+  align-items: center;
+  background: white;
+  transition: background-color 0.2s ease;
+  position: relative;
+  min-height: 60px;
+}
+
+.multi-form-row::before,
+.multi-edit-row::before {
+  content: var(--row-number, "");
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #3498db;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.multi-form-row:hover,
+.multi-edit-row:hover {
+  background: #f8f9fa;
+}
+
+.multi-form-row:last-child,
+.multi-edit-row:last-child {
+  border-bottom: none;
+}
+
+.multi-form-cell,
+.multi-edit-cell {
+  padding: 8px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.multi-form-cell input,
+.multi-form-cell select,
+.multi-edit-cell input,
+.multi-edit-cell select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  background: white;
+  min-height: 45px;
+}
+
+.multi-form-cell input:focus,
+.multi-form-cell select:focus,
+.multi-edit-cell input:focus,
+.multi-edit-cell select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  transform: translateY(-1px);
+}
+
+.multi-form-cell input[readonly],
+.multi-edit-cell input[readonly] {
+  background: #f8f9fa;
+  color: #666;
+  font-weight: 500;
+}
+
+.checkbox-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox-cell input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  accent-color: #3498db;
+}
+
+.readonly-cell {
+  background: #f8f9fa;
+  color: #666;
+  font-weight: 500;
+}
+
+/* 다중 입력용 검색 가능한 드롭다운 스타일 */
+.multi-form-cell .searchable-dropdown,
+.multi-edit-cell .searchable-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.multi-form-cell .searchable-dropdown input,
+.multi-edit-cell .searchable-dropdown input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 45px;
+}
+
+.multi-form-cell .searchable-dropdown input:focus,
+.multi-edit-cell .searchable-dropdown input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.multi-form-cell .dropdown-list,
+.multi-edit-cell .dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-top: 2px;
+}
+
+.multi-form-cell .dropdown-item,
+.multi-edit-cell .dropdown-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.multi-form-cell .dropdown-item:hover,
+.multi-edit-cell .dropdown-item:hover {
+  background: #f8f9fa;
+}
+
+.multi-form-cell .dropdown-item.highlighted,
+.multi-edit-cell .dropdown-item.highlighted {
+  background: #3498db;
+  color: white;
+}
+
+.multi-form-cell .dropdown-item.top-level-option,
+.multi-edit-cell .dropdown-item.top-level-option {
+  background: #e8f4fd;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.multi-form-cell .dropdown-item.top-level-option:hover,
+.multi-edit-cell .dropdown-item.top-level-option:hover {
+  background: #d1ecf1;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+
+  .multi-form-header,
+  .multi-edit-header,
+  .multi-form-row,
+  .multi-edit-row {
+    grid-template-columns: 50px 100px 150px 150px 100px 100px 150px;
+  }
+
+  .header-cell,
+  .multi-form-cell,
+  .multi-edit-cell {
+    padding: 6px 2px;
+  }
+
+  .multi-form-cell input,
+  .multi-form-cell select,
+  .multi-edit-cell input,
+  .multi-edit-cell select {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    min-height: 40px;
+  }
+
+  .multi-form-rows,
+  .multi-edit-rows {
+    max-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .multi-form-header,
+  .multi-edit-header,
+  .multi-form-row,
+  .multi-edit-row {
+    grid-template-columns: 40px 80px 120px 120px 80px 80px 120px;
+  }
+
+  .multi-input-controls,
+  .multi-edit-controls {
+    gap: 8px;
+  }
+
+  .multi-input-controls .control-btn,
+  .multi-edit-controls .control-btn {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+  }
+
+  .header-cell {
+    font-size: 0.8rem;
+  }
+
+  .multi-form-cell input,
+  .multi-form-cell select,
+  .multi-edit-cell input,
+  .multi-edit-cell select {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    min-height: 35px;
+  }
+
+  .multi-form-rows,
+  .multi-edit-rows {
+    max-height: 400px;
+  }
+}
+
+/* 다중 선택 모드 스타일 */
+.tree-item.multi-select-mode {
+  cursor: pointer;
+}
+
+.tree-item.multi-select-mode .tree-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tree-item.multi-select-mode .tree-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.tree-item.multi-selected {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+}
+
+.tree-item.multi-selected .tree-label {
+  color: white;
+}
+
+.tree-item.multi-selected .tree-icon {
+  color: white;
+}
+
+/* 다중 선택 모드 활성화 시 버튼 상태 */
+.multi-select-active .control-btn:not(.multi-select-btn):not(.multi-edit-btn):not(.multi-delete-btn) {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.multi-select-active .multi-edit-btn,
+.multi-select-active .multi-delete-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.multi-category-form .form-actions,
+.multi-edit-form .form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.multi-category-form .submit-btn,
+.multi-edit-form .submit-btn {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.multi-category-form .submit-btn:hover,
+.multi-edit-form .submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+}
+
+.multi-category-form .cancel-btn,
+.multi-edit-form .cancel-btn {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.multi-category-form .cancel-btn:hover,
+.multi-edit-form .cancel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
+}
+
+/* 새로운 통계 섹션 스타일 */
+.stats-details {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 12px;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stats-details .detail-section {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 15px;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-details .detail-section h4 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-bottom: 3px solid #007bff;
+  padding-bottom: 12px;
+  text-align: center;
+  position: relative;
+}
+
+
+
+.stats-details .detail-list {
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.stats-details .detail-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.stats-details .detail-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.stats-details .detail-list::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.stats-details .detail-list::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.stats-details .detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.stats-details .detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.stats-details .detail-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  flex: 1;
+  margin-right: 15px;
+}
+
+.stats-details .detail-value {
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  min-width: 50px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.stats-details .no-data {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  padding: 30px 20px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 10px;
+  border: 2px dashed #dee2e6;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .stats-details {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .stats-details .detail-list {
+    max-height: 200px;
+  }
+
+  .stats-details .detail-section {
+    padding: 20px;
+  }
+
+  .stats-details .detail-item {
+    padding: 10px 12px;
+  }
+
+  .stats-details .detail-label {
+    font-size: 0.9rem;
+  }
+
+  .stats-details .detail-value {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+/* 다운로드 프로그레스 바 스타일 */
+.download-progress {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  margin: 20px 0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: 2px solid #3498db;
+  animation: fadeInUp 0.5s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12, #e74c3c);
+  animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.download-progress-content {
+  text-align: center;
+}
+
+.download-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.download-progress-icon {
+  font-size: 2rem;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.download-progress-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.download-progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #ecf0f1;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.download-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.download-progress-text {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.download-progress-percentage {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  background: linear-gradient(135deg, #3498db, #2ecc71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 프로그레스 바 숨김 애니메이션 */
+.download-progress {
+  transition: opacity 0.5s ease;
+}
+
+.download-progress[style*="opacity: 0"] {
+  transform: translateY(-20px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .download-progress {
+    padding: 20px;
+    margin: 15px 0;
+  }
+  
+  .download-progress-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .download-progress-title {
+    font-size: 1.1rem;
+  }
+  
+  .download-progress-icon {
+    font-size: 1.5rem;
+  }
+}
+
